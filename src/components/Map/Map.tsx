@@ -21,7 +21,7 @@ import {
   ZoomOutOutlined,
 } from "@ant-design/icons";
 import "./Map.css";
-
+import map from "../../assets/屏幕截图 2025-04-18 211728.png"; // 自定义地图图片路径
 const { Title, Text } = Typography;
 const { Option } = Select;
 
@@ -40,7 +40,7 @@ interface Sensor {
   lastUpdate: string;
 }
 
-// 大棚信息
+// 苹果园信息
 interface Greenhouse {
   id: string;
   name: string;
@@ -50,11 +50,11 @@ interface Greenhouse {
   sensors: Sensor[];
 }
 
-// 模拟数据：大棚信息
+// 模拟数据：苹果园信息
 const mockGreenhouses: Greenhouse[] = [
   {
     id: "1",
-    name: "1号大棚",
+    name: "1号苹果园",
     location: [20, 30], // 位置以百分比表示
     cropType: "小白菜",
     area: 500,
@@ -91,7 +91,7 @@ const mockGreenhouses: Greenhouse[] = [
   },
   {
     id: "2",
-    name: "2号大棚",
+    name: "2号苹果园",
     location: [65, 25], // 位置以百分比表示
     cropType: "西红柿",
     area: 650,
@@ -128,7 +128,7 @@ const mockGreenhouses: Greenhouse[] = [
   },
   {
     id: "3",
-    name: "3号大棚",
+    name: "3号苹果园",
     location: [35, 70], // 位置以百分比表示
     cropType: "黄瓜",
     area: 480,
@@ -165,7 +165,7 @@ const mockGreenhouses: Greenhouse[] = [
   },
   {
     id: "4",
-    name: "4号大棚",
+    name: "4号苹果园",
     location: [75, 65], // 位置以百分比表示
     cropType: "生菜",
     area: 420,
@@ -241,7 +241,7 @@ const GreenhouseMap: React.FC = () => {
   const [zoom, setZoom] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  // 获取大棚状态
+  // 获取苹果园状态
   const getGreenhouseStatus = (greenhouse: Greenhouse) => {
     const hasError = greenhouse.sensors.some((s) => s.status === "error");
     const hasWarning = greenhouse.sensors.some((s) => s.status === "warning");
@@ -253,7 +253,7 @@ const GreenhouseMap: React.FC = () => {
     return "normal";
   };
 
-  // 处理大棚选择变化
+  // 处理苹果园选择变化
   const handleGreenhouseChange = (value: string) => {
     setLoading(true);
     setSelectedGreenhouse(value);
@@ -286,7 +286,7 @@ const GreenhouseMap: React.FC = () => {
     }, 1000);
   };
 
-  // 渲染大棚信息卡片
+  // 渲染苹果园信息卡片
   const renderGreenhouseInfo = (greenhouse: Greenhouse) => {
     const columns = [
       {
@@ -341,7 +341,7 @@ const GreenhouseMap: React.FC = () => {
     );
   };
 
-  // 筛选显示的大棚
+  // 筛选显示的苹果园
   const displayedGreenhouses =
     selectedGreenhouse === "all"
       ? mockGreenhouses
@@ -353,7 +353,7 @@ const GreenhouseMap: React.FC = () => {
         <div className="map-header">
           <Title level={4}>
             <EnvironmentOutlined style={{ marginRight: 8 }} />
-            大棚传感器监控地图
+            苹果园传感器监控地图
           </Title>
         </div>
       }
@@ -365,7 +365,7 @@ const GreenhouseMap: React.FC = () => {
             onChange={handleGreenhouseChange}
             value={selectedGreenhouse}
           >
-            <Option value="all">全部大棚</Option>
+            <Option value="all">全部苹果园</Option>
             {mockGreenhouses.map((gh) => (
               <Option key={gh.id} value={gh.id}>
                 {gh.name}
@@ -416,49 +416,16 @@ const GreenhouseMap: React.FC = () => {
 
         {/* 自定义模拟地图 */}
         <div
-          className="custom-map"
-          style={{
-            transform: `scale(${zoom})`,
-            backgroundSize: `${zoom * 100}% ${zoom * 100}%`,
-          }}
+          className="map-image-container"
+          style={{ transform: `scale(${zoom})` }}
         >
-          {/* 添加农场边界和道路 */}
-          <div className="farm-road horizontal-road"></div>
-          <div className="farm-road vertical-road"></div>
-
-          {/* 绘制水池 */}
-          <div className="farm-pond"></div>
-
-          {/* 放置各个大棚标记 */}
-          {displayedGreenhouses.map((greenhouse) => {
-            const status = getGreenhouseStatus(greenhouse);
-            return (
-              <Popover
-                key={greenhouse.id}
-                content={renderGreenhouseInfo(greenhouse)}
-                title={null}
-                trigger="click"
-                placement="top"
-                overlayClassName="greenhouse-popover"
-              >
-                <div
-                  className={`greenhouse-marker status-${status}`}
-                  style={{
-                    left: `${greenhouse.location[0]}%`,
-                    top: `${greenhouse.location[1]}%`,
-                  }}
-                >
-                  <div className="marker-content">{greenhouse.name}</div>
-                </div>
-              </Popover>
-            );
-          })}
+          <img src={map} alt="苹果园地图" className="map-image" />
         </div>
       </div>
 
       <div className="sensor-summary">
         <Text type="secondary">
-          共 {mockGreenhouses.length} 个大棚，
+          共 {mockGreenhouses.length} 个苹果园，
           {mockGreenhouses.reduce(
             (total, gh) => total + gh.sensors.length,
             0

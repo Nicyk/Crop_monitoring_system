@@ -4,73 +4,209 @@
   flex-direction: column;
 }
 
+.video-card .ant-card-head {
+  min-height: 48px;
+  padding: 0 12px;
+}
+
+.video-card .ant-card-body {
+  flex: 1;
+  display: flex;
+  padding: 8px;
+  overflow: hidden;
+}
+
 .video-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  width: 100%;
+  justify-content: space-between;
+}
+
+.video-selector {
+  flex-shrink: 0;
 }
 
 .video-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
 }
 
 .location-text {
-  font-size: 14px;
+  margin-right: 12px;
 }
 
 .fullscreen-btn {
   cursor: pointer;
-  font-size: 18px;
-  padding: 4px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 4px;
+  background: rgba(0, 0, 0, 0.03);
   transition: all 0.3s;
 }
 
 .fullscreen-btn:hover {
-  background-color: #f0f0f0;
-  color: #1890ff;
+  background: rgba(0, 0, 0, 0.09);
 }
 
 .video-container {
-  flex: 1;
-  position: relative;
-  min-height: 300px;
-  border-radius: 4px;
-  overflow: hidden;
-  background-color: #000;
-  margin-top: 16px;
-}
-
-.monitoring-video {
   width: 100%;
   height: 100%;
-  display: block;
-  object-fit: contain;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
 }
 
-.video-loading {
+/* 视频网格容器 */
+.video-grid-container {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  padding: 2px;
+}
+
+/* 视频网格布局 */
+.video-grid {
+  width: 100%;
+  height: 100%;
+  margin: 0 !important; /* 覆盖Ant Design Row的默认外边距 */
+}
+
+.video-grid-item {
+  height: 33.333%; /* 每行3个，所以高度是1/3 */
+  padding: 2px !important; /* 更小的内边距让9格更紧凑 */
+  margin-bottom: 4px;
+}
+
+.video-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 2px;
+  background-color: #141414;
+}
+
+/* 图片样式 */
+.video-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* 悬停效果 */
+.video-frame:hover img {
+  transform: scale(1.03);
+}
+
+/* 覆盖层效果 */
+.video-overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0) 20%
+  );
+  pointer-events: none;
+}
+
+/* 时间戳样式 */
+.video-timestamp {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 1px 4px;
+  border-radius: 2px;
+  font-size: 9px;
+  z-index: 2;
+}
+
+/* 视角标签 */
+.video-label {
+  position: absolute;
+  left: 4px;
+  bottom: 4px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 1px 4px;
+  border-radius: 2px;
+  font-size: 9px;
+  z-index: 2;
+}
+
+/* 选中的视频框 */
+.video-frame.active {
+  box-shadow: 0 0 0 2px #1890ff;
+  z-index: 3;
+}
+
+/* 加载动画 */
+.video-loading {
+  width: 100%;
+  height: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.7);
+  justify-content: center;
   color: white;
 }
 
-.video-selector {
-  margin-left: auto;
+/* 全屏模式样式 */
+:fullscreen .video-container {
+  background-color: #000;
 }
 
-/* 当处于全屏模式时的样式 */
-.monitoring-video:fullscreen {
-  object-fit: contain;
-  width: 100vw;
+:fullscreen .video-grid-container {
   height: 100vh;
+  padding: 8px;
+}
+
+:fullscreen .video-grid-item {
+  height: 33.333vh;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .video-timestamp,
+  .video-label {
+    font-size: 8px;
+    padding: 0px 3px;
+  }
+
+  .video-header h5 {
+    font-size: 14px;
+  }
+
+  .video-selector {
+    width: 120px !important;
+  }
+
+  .location-text {
+    font-size: 12px;
+  }
+}
+
+/* 在极小屏幕上调整为每行两个 */
+@media (max-width: 576px) {
+  .video-grid-item {
+    width: 50% !important; /* 覆盖Col宽度设置 */
+    max-width: 50%;
+    flex: 0 0 50%;
+    height: auto;
+    aspect-ratio: 4/3; /* 保持合适的宽高比 */
+  }
 }

@@ -17,7 +17,7 @@ const { Title, Text } = Typography;
 interface AlertRecord {
   id: string;
   timestamp: string;
-  greenhouseId: string; // 大棚ID
+  greenhouseId: string; // 苹果园ID
   cropType: string;
   alertType: "temperature" | "humidity" | "soil" | "light" | "pest"; // 环境因素警报类型
   value: string; // 环境参数值
@@ -46,20 +46,20 @@ const mockAlertRecords: AlertRecord[] = [
   {
     id: "1",
     timestamp: getRandomTime(),
-    greenhouseId: "1号大棚",
-    cropType: "小白菜",
+    greenhouseId: "1号苹果园",
+    cropType: "苹果",
     alertType: "temperature",
     value: "32°C",
     threshold: "28°C",
     severity: "high",
-    description: "大棚温度过高，可能导致作物生长受阻",
+    description: "苹果园温度过高，可能导致作物生长受阻",
     status: "pending",
   },
   {
     id: "2",
     timestamp: getRandomTime(),
-    greenhouseId: "2号大棚",
-    cropType: "西红柿",
+    greenhouseId: "2号苹果园",
+    cropType: "苹果",
     alertType: "humidity",
     value: "25%",
     threshold: "40-60%",
@@ -70,8 +70,8 @@ const mockAlertRecords: AlertRecord[] = [
   {
     id: "3",
     timestamp: getRandomTime(),
-    greenhouseId: "3号大棚",
-    cropType: "黄瓜",
+    greenhouseId: "3号苹果园",
+    cropType: "苹果",
     alertType: "soil",
     value: "pH 8.5",
     threshold: "pH 6.5-7.0",
@@ -82,8 +82,8 @@ const mockAlertRecords: AlertRecord[] = [
   {
     id: "4",
     timestamp: getRandomTime(),
-    greenhouseId: "4号大棚",
-    cropType: "茄子",
+    greenhouseId: "4号苹果园",
+    cropType: "苹果",
     alertType: "humidity",
     value: "90%",
     threshold: "60-80%",
@@ -94,8 +94,8 @@ const mockAlertRecords: AlertRecord[] = [
   {
     id: "5",
     timestamp: getRandomTime(),
-    greenhouseId: "5号大棚",
-    cropType: "草莓",
+    greenhouseId: "5号苹果园",
+    cropType: "苹果",
     alertType: "light",
     value: "2000 lux",
     threshold: "10000 lux",
@@ -106,8 +106,8 @@ const mockAlertRecords: AlertRecord[] = [
   {
     id: "6",
     timestamp: getRandomTime(),
-    greenhouseId: "6号大棚",
-    cropType: "青椒",
+    greenhouseId: "6号苹果园",
+    cropType: "苹果",
     alertType: "temperature",
     value: "10°C",
     threshold: "15-25°C",
@@ -118,8 +118,8 @@ const mockAlertRecords: AlertRecord[] = [
   {
     id: "7",
     timestamp: getRandomTime(),
-    greenhouseId: "7号大棚",
-    cropType: "生菜",
+    greenhouseId: "7号苹果园",
+    cropType: "苹果",
     alertType: "soil",
     value: "N含量低",
     threshold: "标准值",
@@ -130,8 +130,8 @@ const mockAlertRecords: AlertRecord[] = [
   {
     id: "8",
     timestamp: getRandomTime(),
-    greenhouseId: "8号大棚",
-    cropType: "香菜",
+    greenhouseId: "8号苹果园",
+    cropType: "苹果",
     alertType: "pest",
     value: "发现蚜虫",
     threshold: "无害虫",
@@ -159,13 +159,13 @@ const getSeverityColor = (severity: string): string => {
 const getSeverityText = (severity: string): string => {
   switch (severity) {
     case "high":
-      return "高";
+      return "长势较差";
     case "medium":
-      return "中";
+      return "长势适中";
     case "low":
-      return "低";
+      return "长势良好";
     default:
-      return "未知";
+      return "长势优秀";
   }
 };
 
@@ -229,26 +229,26 @@ const Recorder: React.FC = () => {
     const newAlertInterval = setInterval(() => {
       // 随机生成一条新警情
       const greenhouses = [
-        "1号大棚",
-        "2号大棚",
-        "3号大棚",
-        "4号大棚",
-        "5号大棚",
-        "6号大棚",
-        "7号大棚",
-        "8号大棚",
+        "1号苹果园",
+        "2号苹果园",
+        "3号苹果园",
+        "4号苹果园",
+        "5号苹果园",
+        "6号苹果园",
+        "7号苹果园",
+        "8号苹果园",
       ];
       const cropTypes = [
-        "小白菜",
-        "西红柿",
-        "黄瓜",
-        "茄子",
-        "草莓",
-        "青椒",
-        "生菜",
-        "香菜",
-        "韭菜",
-        "辣椒",
+        "苹果",
+        "苹果",
+        "苹果",
+        "苹果",
+        "苹果",
+        "苹果",
+        "苹果",
+        "苹果",
+        "苹果",
+        "苹果",
       ];
       const alertTypes: (
         | "temperature"
@@ -389,7 +389,7 @@ const Recorder: React.FC = () => {
                       color={getSeverityColor(item.severity)}
                       className="severity-tag"
                     >
-                      {getSeverityText(item.severity)}级
+                      {getSeverityText(item.severity)}
                     </Tag>
                     <span className="alert-type">
                       {alertTypeInfo.icon} {alertTypeInfo.text}

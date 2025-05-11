@@ -1,23 +1,43 @@
 .weather-main-card {
   border-radius: 8px;
   overflow: hidden;
+  height: 100%; /* 确保填充父容器 */
+  display: flex;
+  flex-direction: column;
+}
+
+.weather-main-card .ant-card-body {
+  padding: 10px; /* 减小内边距 */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .weather-loading {
   text-align: center;
-  padding: 40px 0;
+  padding: 20px 0; /* 减小内边距 */
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .weather-header {
-  margin-bottom: 16px;
+  margin-bottom: 8px; /* 减小下边距 */
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  font-size: 0.9em; /* 减小字体 */
 }
 
 .carousel-container {
   position: relative;
-  padding: 0 30px;
+  padding: 0 20px; /* 减小左右内边距 */
+  flex: 1;
+  /* display: flex; */
+  align-items: center;
+  min-height: 0; /* 关键属性：允许Flex容器缩小 */
 }
 
 .carousel-arrow {
@@ -25,15 +45,16 @@
   top: 50%;
   transform: translateY(-50%);
   z-index: 2;
-  font-size: 20px;
+  font-size: 14px; /* 减小箭头大小 */
   background: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 24px; /* 减小按钮尺寸 */
+  height: 24px; /* 减小按钮尺寸 */
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 24px; /* 确保最小宽度 */
 }
 
 .carousel-arrow-left {
@@ -45,64 +66,176 @@
 }
 
 .weather-carousel {
-  padding-bottom: 40px;
+  padding-top: 15px;
+  padding-bottom: 20px; /* 减小内边距 */
+  width: 100%;
+  flex: 1;
+  min-height: 0; /* 关键属性 */
+}
+
+/* 重要：修复轮播图无法压缩的问题 */
+.weather-carousel .slick-slider,
+.weather-carousel .slick-list,
+.weather-carousel .slick-track,
+.weather-carousel .slick-slide > div {
+  height: 100%;
 }
 
 .weather-card-container {
-  padding: 10px;
+  padding: 5px; /* 减小内边距 */
+  height: 100%;
 }
 
 .weather-detail-card {
   text-align: center;
   height: 100%;
   margin: 0 auto;
-  max-width: 95%;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  border-radius: 8px;
+  max-width: 100%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  border-radius: 6px;
   transition: transform 0.3s;
 }
 
+.weather-detail-card .ant-card-body {
+  padding: 8px; /* 减小内边距 */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .weather-detail-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-2px); /* 减小悬停效果 */
 }
 
 .weather-card-title {
   text-align: center;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 14px; /* 减小标题字体 */
+  margin-bottom: 4px;
 }
 
 .weather-temperature {
-  font-size: 24px;
+  font-size: 16px; /* 减小温度字体 */
   font-weight: bold;
-  margin: 16px 0;
+  margin: 6px 0; /* 减小上下边距 */
 }
 
 .weather-conditions {
-  margin: 16px 0;
+  margin: 6px 0; /* 减小上下边距 */
   display: flex;
-  gap: 8px;
+  gap: 4px; /* 减小间距 */
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .weather-tag {
-  font-size: 16px;
-  padding: 4px 12px;
+  font-size: 12px; /* 减小标签字体 */
+  padding: 2px 6px; /* 减小标签内边距 */
+  margin: 0;
+  line-height: 1.2;
 }
 
 .weather-wind {
-  font-size: 16px;
-  margin-top: 8px;
+  font-size: 12px; /* 减小风力字体 */
+  margin-top: 4px; /* 减小上边距 */
 }
 
-/* 响应式设计 */
-@media (max-width: 768px) {
+/* 更激进的小屏幕响应式设计 */
+@media (max-height: 600px) {
   .weather-temperature {
-    font-size: 24px;
+    font-size: 14px;
+    margin: 4px 0;
+  }
+
+  .weather-conditions {
+    margin: 4px 0;
   }
 
   .weather-tag {
+    font-size: 10px;
+    padding: 1px 4px;
+  }
+
+  .weather-wind {
+    font-size: 10px;
+  }
+
+  .carousel-arrow {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    font-size: 12px;
+  }
+}
+/* 添加这些规则用于控制宽度 */
+
+.weather-carousel .slick-slide {
+  max-width: 100%; /* 确保不会超出容器宽度 */
+  overflow: hidden; /* 隐藏溢出内容 */
+}
+
+.weather-detail-card {
+  text-align: center;
+  height: 100%;
+  margin: 0 auto;
+  max-width: 100%;
+  width: 100%; /* 确保卡片填充容器宽度 */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  border-radius: 6px;
+  transition: transform 0.3s;
+}
+
+.weather-card-container {
+  padding: 3px; /* 进一步减小内边距 */
+  height: 100%;
+  width: 100%; /* 确保容器填充宽度 */
+}
+
+/* 减小天气标签大小，防止宽度问题 */
+.weather-tag {
+  font-size: 10px; /* 减小标签字体 */
+  padding: 0 4px; /* 减小标签内边距 */
+  margin: 0;
+  line-height: 1.2;
+  white-space: nowrap; /* 防止标签换行 */
+  max-width: 60px; /* 限制最大宽度 */
+  overflow: hidden;
+  text-overflow: ellipsis; /* 超出部分显示省略号 */
+}
+
+/* 媒体查询，根据容器宽度调整 */
+@media (max-width: 1280px) {
+  .weather-temperature {
     font-size: 14px;
+  }
+
+  .carousel-container {
+    padding: 0 15px; /* 减小左右内边距 */
+  }
+
+  .carousel-arrow {
+    width: 20px;
+    height: 20px;
+  }
+
+  .weather-tag {
+    max-width: 40px; /* 更小的容器宽度限制 */
+  }
+}
+
+/* 更进一步的宽度控制 */
+@media (max-width: 992px) {
+  .carousel-container {
+    padding: 0 10px; /* 进一步减小内边距 */
+  }
+
+  .weather-temperature {
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .weather-conditions {
+    gap: 2px; /* 减小标签间距 */
   }
 }

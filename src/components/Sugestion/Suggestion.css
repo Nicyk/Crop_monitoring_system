@@ -1,0 +1,137 @@
+.suggestion-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.suggestion-title {
+  margin-bottom: 8px !important;
+  font-size: 16px !important;
+}
+
+.suggestion-grid {
+  flex: 1;
+  overflow: hidden; /* 不显示滚动条 */
+}
+
+/* 网格卡片样式 */
+.suggestion-grid-card {
+  height: 100%;
+  transition: all 0.3s;
+}
+
+.suggestion-grid-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.suggestion-img-container {
+  position: relative;
+  height: 80px;
+  overflow: hidden;
+}
+
+.suggestion-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.suggestion-grid-card:hover .suggestion-img {
+  transform: scale(1.05);
+}
+
+.suggestion-category {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 1px 6px;
+  border-radius: 10px;
+  font-size: 10px;
+}
+
+/* 卡片内容样式 */
+.suggestion-grid-card .ant-card-body {
+  padding: 10px;
+}
+
+.suggestion-grid-card .ant-card-meta-title {
+  margin-bottom: 4px !important;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.suggestion-brief {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.suggestion-brief .ant-typography {
+  font-size: 12px;
+  flex: 1;
+  margin-right: 4px;
+}
+
+.suggestion-more {
+  padding: 0;
+  height: auto;
+  font-size: 12px;
+  color: #1890ff;
+}
+
+/* Modal样式 */
+.suggestion-modal-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.suggestion-modal-img-container {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+.suggestion-modal-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.suggestion-modal-description h5.ant-typography {
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+/* 确保不出现滚动条 */
+.ant-col {
+  height: calc((100% - 16px) / 3); /* 每行3个卡片，减去间距 */
+}
+
+.ant-row {
+  height: 100%;
+}
+
+/* 响应式调整 */
+@media (max-width: 992px) {
+  .suggestion-img-container {
+    height: 70px;
+  }
+
+  .suggestion-grid-card .ant-card-meta-title {
+    font-size: 13px;
+  }
+
+  .suggestion-brief .ant-typography {
+    font-size: 11px;
+  }
+}

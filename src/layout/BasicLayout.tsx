@@ -19,6 +19,7 @@ import {
 import Recorder from "@/components/Recorder/Recorder";
 import Video from "@/components/Video/Video";
 import GreenhouseMap from "@/components/Map/Map";
+import Suggestion from "@/components/Sugestion/Suggestion";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -39,61 +40,100 @@ const BasicLayout: React.FC<BasicLayoutProps> = ({ children }) => {
   } = theme.useToken();
 
   return (
-    <Layout style={{ minHeight: "100vh" }}>
-      <Header style={{ display: "flex", alignItems: "center", color: "white" }}>
-        <h1>农作物大棚监控系统</h1>
+    <Layout style={{ height: "100vh" }}>
+      <Header
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "white",
+          height: "48px", // 减小Header高度
+          lineHeight: "48px", // 减小行高以匹配
+          padding: "0 16px",
+        }}
+      >
+        <h1 style={{ margin: 0, fontSize: "18px" }}>苹果园监控系统</h1>
       </Header>
       <Layout>
-        {/* <Header style={{ padding: 0, background: colorBgContainer }} /> */}
-        <Content style={{ margin: "8px 16px" }}>
+        <Content style={{ margin: "4px 8px" }}>
           <div
             style={{
-              padding: 24,
+              padding: "12px",
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
+              height: "calc(100vh - 56px)", // 计算剩余高度
             }}
           >
-            <Row gutter={16}>
-              {/* 左侧30%区域 - 包含Weather和DemoPie垂直排列 */}
-              <Col span={7} style={{ width: "30%" }}>
-                <Flex vertical gap={16}>
+            <Row gutter={[8, 8]} style={{ height: "100%" }}>
+              {/* 左侧25%区域 - 包含Weather和Recorder垂直排列 */}
+              <Col span={6} style={{ width: "25%", height: "100%" }}>
+                <Flex vertical gap={8} style={{ height: "100%" }}>
                   {/* Weather组件 */}
                   <Card
                     hoverable
-                    styles={{
-                      body: {
-                        padding: 0,
-                        overflow: "hidden",
-                        height: "300px", // 确保内容填满卡片
-                      },
+                    style={{
+                      flex: "0 0 200px", // 设置固定高度而不是比例
+                      maxHeight: "200px", // 设置最大高度
+                      overflow: "hidden", // 确保内容不溢出
+                    }}
+                    bodyStyle={{
+                      padding: 0, // 移除Card的内边距
+                      height: "100%",
                     }}
                   >
                     <Weather />
                   </Card>
 
-                  {/* DemoPie组件 */}
+                  {/* Recorder组件 */}
                   <Card
                     hoverable
-                    styles={{ body: { padding: 0, overflow: "hidden" } }}
-                  >
-                    <DemoPie />
-                  </Card>
-
-                  <Card
-                    hoverable
-                    styles={{ body: { padding: 0, overflow: "hidden" } }}
+                    style={{ flex: "1" }} // 占据剩余空间
                   >
                     <Recorder />
                   </Card>
                 </Flex>
               </Col>
 
-              {/* 右侧70%区域 - 预留给其他内容 */}
-              <Col span={17} style={{ width: "70%" }}>
-                <Flex vertical gap={16}>
-                  <Video />
-                  <GreenhouseMap />
+              {/* 中间区域 - Video监控组件 */}
+              <Col span={9} style={{ width: "37.5%", height: "100%" }}>
+                <Flex vertical gap={8} style={{ height: "100%" }}>
+                  {/* Video组件 */}
+                  <Card
+                    hoverable
+                    style={{
+                      flex: "0 0 calc(50% - 4px)", // 占50%高度(减去间隔的一半)
+                      overflow: "hidden",
+                    }}
+                    bodyStyle={{
+                      padding: 0,
+                      height: "100%",
+                    }}
+                  >
+                    <Video />
+                  </Card>
+
+                  {/* Suggestion组件 */}
+                  <Card
+                    hoverable
+                    style={{
+                      flex: "0 0 calc(50% - 4px)", // 占50%高度(减去间隔的一半)
+                      overflow: "auto",
+                    }}
+                    bodyStyle={{
+                      padding: 12, // 留些内边距给Suggestion组件
+                      height: "100%",
+                    }}
+                  >
+                    <Suggestion />
+                  </Card>
                 </Flex>
+              </Col>
+
+              {/* 右侧区域 - Map地图组件 */}
+              <Col span={9} style={{ width: "37.5%", height: "100%" }}>
+                <Card hoverable style={{ height: "100%" }}>
+                  <GreenhouseMap />
+                </Card>
               </Col>
             </Row>
           </div>
